@@ -186,15 +186,16 @@ summary(keepdata$subject)
 library(dplyr)
 
 #group the dataset by activity and by subject
-group <- tbl_df(keepdata)
-names(group)
-by_actandsubj <- group %>% group_by(activity, subject)
+keepdata <- tbl_df(keepdata)
+names(keepdata)
+?group_by
+by_actandsubj <- group_by(keepdata, activity, subject)
 dim(by_actandsubj)
 
 #then use summarise_each to get the mean of all columns by activity and subject
 ?summarise_each
 
-newdf <- by_actandsubj %>% summarise_each(funs(mean))
+newdf <- summarise_each(by_actandsubj, funs(mean))
 dim(newdf) #180rows x 88columns -- that is GOOD
 head(newdf[,1:4], 40)
 #perfect
